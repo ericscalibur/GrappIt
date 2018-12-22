@@ -28,7 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if( location != null ) {
             LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.clear();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
         }
     }
 
@@ -58,14 +58,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         Intent intent = getIntent();
 
-        if (intent.getIntExtra("placeNumber", 0) == 0) {
+        Location placeLocation = GrappListActivity.locations.get(intent.getIntExtra("placeNumber", 0));
 
-            Location placeLocation = GrappListActivity.locations.get(intent.getIntExtra("placeNumber", 0));
-
-            LatLng newLatLng = new LatLng(placeLocation.getLatitude(), placeLocation.getLongitude());
-            centerMapOnLocation(placeLocation);
-            mMap.addMarker(new MarkerOptions().position(newLatLng).title(GrappListActivity.titles.get(intent.getIntExtra("placeNumber", 0))));
-
-        }
+        LatLng newLatLng = new LatLng(placeLocation.getLatitude(), placeLocation.getLongitude());
+        centerMapOnLocation(placeLocation);
+        mMap.addMarker(new MarkerOptions().position(newLatLng).title(GrappListActivity.titles.get(intent.getIntExtra("placeNumber", 0))));
     }
 }

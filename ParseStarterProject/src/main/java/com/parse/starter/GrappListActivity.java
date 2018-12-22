@@ -50,6 +50,9 @@ public class GrappListActivity extends AppCompatActivity {
 
     public static final ArrayList<String> titles = new ArrayList<String>();
     public static final ArrayList<Location> locations = new ArrayList<Location>();
+    final ArrayList<String> descriptions = new ArrayList<String>();
+    final ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+    final ArrayList<String> ids = new ArrayList<String>();
 
     // move to NewGrapp Activity
     public void getPhoto() {
@@ -95,10 +98,13 @@ public class GrappListActivity extends AppCompatActivity {
         setTitle(ParseUser.getCurrentUser().getUsername()+"'s Grapps");
 
         final ListView listView = (ListView) findViewById(R.id.listView);
-        final ArrayList<String> descriptions = new ArrayList<String>();
-        final ArrayList<Bitmap> images = new ArrayList<Bitmap>();
-        final ArrayList<String> ids = new ArrayList<String>();
         final MyAdapter adapter = new MyAdapter(this, titles, descriptions, images);
+
+        titles.clear();
+        descriptions.clear();
+        images.clear();
+        ids.clear();
+        locations.clear();
 
         // view clicked item on map
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,7 +112,6 @@ public class GrappListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
             intent.putExtra("placeNumber", i);
-
             startActivity(intent);
             //Toast.makeText(GrappListActivity.this, "You clicked something!", Toast.LENGTH_SHORT).show();
             }
@@ -157,7 +162,7 @@ public class GrappListActivity extends AppCompatActivity {
             }
         });
 
-        //query parse for images to fill ListView
+        //query parse for data to fill ListView
         ParseQuery<ParseObject> grappQuery = new ParseQuery<ParseObject>("Grapp");
         grappQuery.whereEqualTo("username",  ParseUser.getCurrentUser().getUsername());
         grappQuery.orderByDescending("createdAt");
@@ -182,28 +187,28 @@ public class GrappListActivity extends AppCompatActivity {
                         location.setLongitude(longitude);
                     }
 
-                    titles.add(newTitle);
-                    descriptions.add(newDescription);
-                    ids.add(object.getObjectId());
-                    locations.add(location);
-
                     ParseFile file = (ParseFile) object.get("image");
 
                     //download images from Parse ImageObject file
                     file.getDataInBackground(new GetDataCallback() {
                         @Override
                         public void done(byte[] data, ParseException e) {
-                            if (e == null && data != null) {
-                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        if (e == null && data != null) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-                                images.add(bitmap);
-                                listView.setAdapter(adapter);
+                            images.add(bitmap);
+                            listView.setAdapter(adapter);
 
-                            } else {
-                                e.printStackTrace();
-                            }
+                        } else {
+                            e.printStackTrace();
+                        }
                         }
                     });
+
+                    titles.add(newTitle);
+                    descriptions.add(newDescription);
+                    ids.add(object.getObjectId());
+                    locations.add(location);
                 }
             }
             }
