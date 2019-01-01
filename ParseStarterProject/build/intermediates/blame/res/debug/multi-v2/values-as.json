@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/AndroidStudioProjects/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-as/values-as.xml",
+            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-as/values-as.xml",
             "map": [
                 {
-                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/f4460f0974fe0b60f9901d9f47ba1c5e/res/values-as/values.xml",
+                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/ac5d305244d340969c8315e7eabc7957/res/values-as/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/07baa2571b1527b21087bc00487472ac/res/values-as/values.xml",
+                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/0b6b621f2a2bd34f9e863631f958399b/res/values-as/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

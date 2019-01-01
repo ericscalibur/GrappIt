@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/AndroidStudioProjects/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/b6ae8e5125b529ef45ddf574eb0bd3ec/res/values-v24/values-v24.xml",
+                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/6ef280aeebe9bea64b8ca28fa288044a/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

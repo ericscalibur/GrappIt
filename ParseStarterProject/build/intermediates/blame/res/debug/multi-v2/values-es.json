@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/AndroidStudioProjects/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml",
+            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml",
             "map": [
                 {
-                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.4.0.aar/71cc0aab7fc77a8832d82d72c132b0d1/res/values-es/values-es.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,172,280,403,516,624,709,810,938,1014,1090,1172,1279,1379,1478,1586,1693,1800,1922,2022",
-                        "endColumns": "116,107,122,112,107,84,100,127,75,75,81,106,99,98,107,106,106,121,99,100",
-                        "endOffsets": "167,275,398,511,619,704,805,933,1009,1085,1167,1274,1374,1473,1581,1688,1795,1917,2017,2118"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,39",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,222,330,453,566,674,759,860,988,1064,1140,1222,1329,1429,1528,1636,1743,1850,1972,4898",
-                        "endColumns": "116,107,122,112,107,84,100,127,75,75,81,106,99,98,107,106,106,121,99,100",
-                        "endOffsets": "217,325,448,561,669,754,855,983,1059,1135,1217,1324,1424,1523,1631,1738,1845,1967,2067,4994"
-                    }
-                },
-                {
-                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/f4460f0974fe0b60f9901d9f47ba1c5e/res/values-es/values.xml",
+                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/ac5d305244d340969c8315e7eabc7957/res/values-es/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/07baa2571b1527b21087bc00487472ac/res/values-es/values.xml",
+                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.4.0.aar/aada4f14fc3d3b6d9032aa4633292b46/res/values-es/values-es.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,172,280,403,516,624,709,810,938,1014,1090,1172,1279,1379,1478,1586,1693,1800,1922,2022",
+                        "endColumns": "116,107,122,112,107,84,100,127,75,75,81,106,99,98,107,106,106,121,99,100",
+                        "endOffsets": "167,275,398,511,619,704,805,933,1009,1085,1167,1274,1374,1473,1581,1688,1795,1917,2017,2118"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,39",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,222,330,453,566,674,759,860,988,1064,1140,1222,1329,1429,1528,1636,1743,1850,1972,4898",
+                        "endColumns": "116,107,122,112,107,84,100,127,75,75,81,106,99,98,107,106,106,121,99,100",
+                        "endOffsets": "217,325,448,561,669,754,855,983,1059,1135,1217,1324,1424,1523,1631,1738,1845,1967,2067,4994"
+                    }
+                },
+                {
+                    "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/0b6b621f2a2bd34f9e863631f958399b/res/values-es/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

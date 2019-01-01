@@ -9,25 +9,26 @@
 
     <ImageView
         android:id="@+id/thumbImageView"
-        android:layout_width="100dp"
-        android:layout_height="161dp"
+        android:layout_width="280dp"
+        android:layout_height="118dp"
         android:layout_margin="8dp"
         android:layout_weight="1" />
 
     <LinearLayout
-        android:layout_width="198dp"
-        android:layout_height="173dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginLeft="5dp">
 
         <TextView
             android:id="@+id/itemTitleTextView"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:textColor="@android:color/background_dark"
             android:textSize="18sp"
@@ -37,6 +38,7 @@
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:layout_weight="1"
             android:textColor="@android:color/background_dark" />
 
