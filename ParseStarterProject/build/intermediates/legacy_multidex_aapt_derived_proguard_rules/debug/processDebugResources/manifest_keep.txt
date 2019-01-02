@@ -1,2 +1,0 @@
-# Referenced at /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:28
--keep class com.parse.starter.StarterApplication { <init>(...); }
