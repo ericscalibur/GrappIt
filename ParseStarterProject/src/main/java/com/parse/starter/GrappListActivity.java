@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,11 +49,11 @@ import java.util.List;
 
 public class GrappListActivity extends AppCompatActivity {
 
-    public static final ArrayList<String> titles = new ArrayList<String>();
-    public static final ArrayList<Location> locations = new ArrayList<Location>();
-    final ArrayList<String> descriptions = new ArrayList<String>();
-    final ArrayList<Bitmap> images = new ArrayList<Bitmap>();
-    final ArrayList<String> ids = new ArrayList<String>();
+    static ArrayList<Grapp> grappList = new ArrayList<Grapp>();
+    public ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+
+    ListView listView;
+    ListViewAdapter adapter;
 
     // move to NewGrapp Activity
     public void getPhoto() {
@@ -97,14 +98,10 @@ public class GrappListActivity extends AppCompatActivity {
 
         setTitle(ParseUser.getCurrentUser().getUsername()+"'s Grapps");
 
-        final ListView listView = (ListView) findViewById(R.id.listView);
-        final MyAdapter adapter = new MyAdapter(this, titles, descriptions, images);
-
-        titles.clear();
-        descriptions.clear();
+        grappList.clear();
         images.clear();
-        ids.clear();
-        locations.clear();
+
+        listView = (ListView) findViewById(R.id.listView);
 
         // view clicked item on map
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,7 +126,7 @@ public class GrappListActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                     // delete from Parse
-                    String objectId = ids.get(position);
+                    String objectId = grappList.get(position).getId();
 
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Grapp");
                     query.whereEqualTo("objectId", objectId);
@@ -146,11 +143,8 @@ public class GrappListActivity extends AppCompatActivity {
                     });
 
                     //delete from lists
-                    titles.remove(position);
-                    descriptions.remove(position);
                     images.remove(position);
-                    ids.remove(position);
-                    locations.remove(position);
+                    grappList.remove(position);
                     adapter.notifyDataSetChanged();
                     }
 
@@ -173,93 +167,52 @@ public class GrappListActivity extends AppCompatActivity {
             if (e == null && objects.size() > 0) {
                 for (ParseObject object : objects ) {
 
-                    String newTitle = (String) object.getString("title");
-                    String newDescription = (String) object.getString("description");
-                    ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
-                    Location location = new Location("");
-
-                    if( geoPoint != null ) {
-                        double latitude = geoPoint.getLatitude();
-                        double longitude = geoPoint.getLongitude();
-
-
-                        location.setLatitude(latitude);
-                        location.setLongitude(longitude);
-                    }
-
                     ParseFile file = (ParseFile) object.get("image");
 
                     //download images from Parse ImageObject file
                     file.getDataInBackground(new GetDataCallback() {
                         @Override
                         public void done(byte[] data, ParseException e) {
-                        if (e == null && data != null) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-
-                            images.add(bitmap);
-                            listView.setAdapter(adapter);
-
-                        } else {
-                            e.printStackTrace();
-                        }
+                                if (e == null && data != null) {
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                    images.add(bitmap);
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    e.printStackTrace();
+                                }
                         }
                     });
 
-                    titles.add(newTitle);
-                    descriptions.add(newDescription);
-                    ids.add(object.getObjectId());
-                    locations.add(location);
+                    String newTitle = (String) object.getString("title");
+                    String newDescription = (String) object.getString("description");
+                    ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
+                    Location location = new Location("");
+                    String id = (String) object.getObjectId();
+
+                    if( geoPoint != null ) {
+                        double latitude = geoPoint.getLatitude();
+                        double longitude = geoPoint.getLongitude();
+
+                        location.setLatitude(latitude);
+                        location.setLongitude(longitude);
+                    }
+
+                    Grapp newGrapp = new Grapp(newTitle, newDescription, id, location);
+                    grappList.add(newGrapp);
+
+                    Log.i("grappList Length", Integer.toString(grappList.size()));
+                    Log.i("images Length", Integer.toString(images.size()));
                 }
+
+            } else {
+                e.printStackTrace();
             }
+
             }
         });
-    }
 
-    class MyAdapter extends ArrayAdapter<String> {
-        Context context;
-        ArrayList<String> myTitles;
-        ArrayList<Bitmap> bitmapArrayList;
-        ArrayList<String> myDescriptions;
-
-        MyAdapter(Context c, ArrayList<String> titles, ArrayList<String> desc, ArrayList<Bitmap> imgs) {
-            super(c, R.layout.activity_grapp_list, R.id.itemTitleTextView, titles);
-            this.context = c;
-            this.bitmapArrayList = imgs;
-            this.myTitles = titles;
-            this.myDescriptions = desc;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View listItem = layoutInflater.inflate(R.layout.list_item_layout, parent, false);
-            ImageView thumbImage =  (ImageView) listItem.findViewById(R.id.thumbImageView);
-            TextView itemTitle = (TextView) listItem.findViewById(R.id.itemTitleTextView);
-            TextView itemDescription = (TextView) listItem.findViewById(R.id.descriptionTextView);
-
-            if(bitmapArrayList.size() > position) {
-                if (bitmapArrayList.get(position) != null) {
-                    thumbImage.setImageBitmap(bitmapArrayList.get(position));
-                } else {
-                    Toast.makeText(GrappListActivity.this, "bitmapArrayList == null", Toast.LENGTH_SHORT).show();
-                }
-
-                if (myTitles.get(position) != null) {
-                    itemTitle.setText(myTitles.get(position));
-                } else {
-                    Toast.makeText(GrappListActivity.this, "myTitle: " + myTitles.get(position), Toast.LENGTH_SHORT).show();
-                }
-
-                if (myDescriptions.get(position) != null) {
-                    itemDescription.setText(myDescriptions.get(position));
-                } else {
-                    // handle
-                }
-            }
-
-            return listItem;
-        }
+        adapter = new ListViewAdapter(GrappListActivity.this, grappList, images);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }

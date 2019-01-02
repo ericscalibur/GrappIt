@@ -58,10 +58,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         Intent intent = getIntent();
 
-        Location placeLocation = GrappListActivity.locations.get(intent.getIntExtra("placeNumber", 0));
+        Location placeLocation = GrappListActivity.grappList.get(intent.getIntExtra("placeNumber", 0)).getLocation();
 
         LatLng newLatLng = new LatLng(placeLocation.getLatitude(), placeLocation.getLongitude());
         centerMapOnLocation(placeLocation);
-        mMap.addMarker(new MarkerOptions().position(newLatLng).title(GrappListActivity.titles.get(intent.getIntExtra("placeNumber", 0))));
+        mMap.addMarker(new MarkerOptions().position(newLatLng).title(GrappListActivity.grappList.get(intent.getIntExtra("placeNumber", 0)).getTitle()));
     }
 }
