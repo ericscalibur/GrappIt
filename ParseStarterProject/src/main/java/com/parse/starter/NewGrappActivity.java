@@ -2,6 +2,7 @@ package com.parse.starter;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,22 +13,28 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -35,7 +42,7 @@ import java.io.ByteArrayOutputStream;
 
 // this is the GrappIt version
 
-public class NewGrappActivity extends AppCompatActivity {
+public class NewGrappActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener {
 
     ImageView imageView;
     EditText titleEditText;
@@ -121,7 +128,38 @@ public class NewGrappActivity extends AppCompatActivity {
 
     public void cancelFunction(View view) {
 
-        // Intent(intent)
+        new AlertDialog.Builder(NewGrappActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Are you sure?")
+                .setMessage("Do you want to cancel?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // clear fields
+                        titleEditText.setText("");
+                        descriptionEditText.setText("");
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                // .setNeutralButton("Retake Photo")
+                .show();
+
+    }
+
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+
+        if ( i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+            saveFunction(view);
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(NewGrappActivity.this, GrappListActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -131,6 +169,7 @@ public class NewGrappActivity extends AppCompatActivity {
 
         setTitle("New Grapp");
 
+        // launch camera first thing to get image
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 0);
 
@@ -140,8 +179,18 @@ public class NewGrappActivity extends AppCompatActivity {
 
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
+        ConstraintLayout background = (ConstraintLayout) findViewById(R.id.background);
+
+        // incase user taps off keyboard...
+        imageView.setOnClickListener(this);
+        background.setOnClickListener(this);
+
+        // allow 'KEYCODE_ENTER' press to call saveFunction()...
+        descriptionEditText.setOnKeyListener(this);
+
     }
-    // after user selects image, convert to bitmap, then to byteArray
+
+    // after user takes photo, convert to bitmap, then to byteArray
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -162,9 +211,17 @@ public class NewGrappActivity extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 0,0, locationListener);
                     Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//
                 }
             }
+        }
+    }
+
+    // close keyboard when user taps on background or image
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.background || view.getId() == R.id.imageView) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 }

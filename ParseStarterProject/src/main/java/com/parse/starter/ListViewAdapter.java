@@ -73,7 +73,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         holder.titleTextView.setText(modelList.get(position).getTitle());
         holder.descTextView.setText(modelList.get(position).getDesc());
-        if (iconList.size() > position && iconList.get(position) != null) { holder.iconImageView.setImageBitmap(iconList.get(position)); }
+        holder.iconImageView.setImageBitmap(iconList.get(position));
 
 
 //        view.setOnClickListener(new View.OnClickListener() {
@@ -89,13 +89,15 @@ public class ListViewAdapter extends BaseAdapter {
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         modelList.clear();
-
+        iconList.clear();
         if(charText.length() == 0) {
             modelList.addAll(grappList);
+            iconList.addAll(imageList);
         } else {
-            for (Grapp model : grappList ) {
-                if (model.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    modelList.add(model);
+            for (int i = 0; i < modelList.size(); i++ ) {
+                if (grappList.get(i).getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    modelList.add(grappList.get(i));
+                    iconList.add(imageList.get(i));
                 }
             }
         }

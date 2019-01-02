@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +71,33 @@ public class GrappListActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.options_menu, menu);
 
-        return super.onCreateOptionsMenu(menu);
+//        return super.onCreateOptionsMenu(menu);
+
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+
+        if(searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+
+                    if (TextUtils.isEmpty(s)) {
+                        adapter.filter("");
+                        listView.clearTextFilter();
+                    } else {
+                        adapter.filter(s);
+                    }
+                    return true;
+                }
+            });
+        }
+
+        return true;
     }
 
 
@@ -87,6 +115,8 @@ public class GrappListActivity extends AppCompatActivity {
             ParseUser.logOut();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+        } else if( item.getItemId() == R.id.action_search) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -173,13 +203,13 @@ public class GrappListActivity extends AppCompatActivity {
                     file.getDataInBackground(new GetDataCallback() {
                         @Override
                         public void done(byte[] data, ParseException e) {
-                                if (e == null && data != null) {
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                    images.add(bitmap);
-                                    adapter.notifyDataSetChanged();
-                                } else {
-                                    e.printStackTrace();
-                                }
+                        if (e == null && data != null) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            images.add(bitmap);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            e.printStackTrace();
+                        }
                         }
                     });
 
@@ -199,9 +229,6 @@ public class GrappListActivity extends AppCompatActivity {
 
                     Grapp newGrapp = new Grapp(newTitle, newDescription, id, location);
                     grappList.add(newGrapp);
-
-                    Log.i("grappList Length", Integer.toString(grappList.size()));
-                    Log.i("images Length", Integer.toString(images.size()));
                 }
 
             } else {
