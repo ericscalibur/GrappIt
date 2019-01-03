@@ -24,15 +24,13 @@ public class ListViewAdapter extends BaseAdapter {
     ArrayList<Bitmap> iconList;
     ArrayList<Bitmap> imageList;
 
-    public ListViewAdapter(Context context, List<Grapp> modelList, ArrayList<Bitmap> bitmapList) {
+    public ListViewAdapter(Context context, List<Grapp> modelList) {
         this.myContext = context;
         this.modelList = modelList;
-        this.iconList = bitmapList;
+
         inflater = LayoutInflater.from(myContext);
         this.grappList = new ArrayList<Grapp>();
         this.grappList.addAll(modelList);
-        this.imageList = new ArrayList<Bitmap>();
-        this.imageList.addAll(bitmapList);
     }
 
     public class ViewHolder {
@@ -61,20 +59,21 @@ public class ListViewAdapter extends BaseAdapter {
         if(view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.list_item_layout, null);
-
-            holder.titleTextView = (TextView) view.findViewById(R.id.itemTitleTextView);
-            holder.descTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-            holder.iconImageView = (ImageView) view.findViewById(R.id.thumbImageView);
-
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.titleTextView.setText(modelList.get(position).getTitle());
-        holder.descTextView.setText(modelList.get(position).getDesc());
-        holder.iconImageView.setImageBitmap(iconList.get(position));
+        holder.titleTextView = (TextView) view.findViewById(R.id.itemTitleTextView);
+        holder.descTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        holder.iconImageView = (ImageView) view.findViewById(R.id.thumbImageView);
 
+        if(modelList.size() > position ) {
+
+            holder.iconImageView.setImageBitmap(modelList.get(position).getBitmap());
+            holder.titleTextView.setText(modelList.get(position).getTitle());
+            holder.descTextView.setText(modelList.get(position).getDesc());
+        }
 
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -89,15 +88,12 @@ public class ListViewAdapter extends BaseAdapter {
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         modelList.clear();
-        iconList.clear();
         if(charText.length() == 0) {
             modelList.addAll(grappList);
-            iconList.addAll(imageList);
         } else {
             for (int i = 0; i < modelList.size(); i++ ) {
                 if (grappList.get(i).getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
                     modelList.add(grappList.get(i));
-                    iconList.add(imageList.get(i));
                 }
             }
         }

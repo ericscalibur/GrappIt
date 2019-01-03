@@ -46,13 +46,13 @@ import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Collections;
 
 // this is the GrappIt version
 
 public class GrappListActivity extends AppCompatActivity {
 
     static ArrayList<Grapp> grappList = new ArrayList<Grapp>();
-    public ArrayList<Bitmap> images = new ArrayList<Bitmap>();
 
     ListView listView;
     ListViewAdapter adapter;
@@ -74,7 +74,7 @@ public class GrappListActivity extends AppCompatActivity {
 //        return super.onCreateOptionsMenu(menu);
 
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        SearchView searchView = (android.widget.SearchView) myActionMenuItem.getActionView();
 
         if(searchView != null) {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -129,7 +129,6 @@ public class GrappListActivity extends AppCompatActivity {
         setTitle(ParseUser.getCurrentUser().getUsername()+"'s Grapps");
 
         grappList.clear();
-        images.clear();
 
         listView = (ListView) findViewById(R.id.listView);
 
@@ -173,7 +172,6 @@ public class GrappListActivity extends AppCompatActivity {
                     });
 
                     //delete from lists
-                    images.remove(position);
                     grappList.remove(position);
                     adapter.notifyDataSetChanged();
                     }
@@ -194,51 +192,51 @@ public class GrappListActivity extends AppCompatActivity {
         grappQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-            if (e == null && objects.size() > 0) {
-                for (ParseObject object : objects ) {
+                if (e == null && objects.size() > 0) {
+                    for (final ParseObject object : objects ) {
 
-                    ParseFile file = (ParseFile) object.get("image");
+                        ParseFile file = (ParseFile) object.get("image");
 
-                    //download images from Parse ImageObject file
-                    file.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] data, ParseException e) {
-                        if (e == null && data != null) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            images.add(bitmap);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            e.printStackTrace();
-                        }
-                        }
-                    });
+                        //download images from Parse ImageObject file
+                        file.getDataInBackground(new GetDataCallback() {
+                            @Override
+                            public void done(byte[] data, ParseException e) {
+                                if (e == null && data != null) {
 
-                    String newTitle = (String) object.getString("title");
-                    String newDescription = (String) object.getString("description");
-                    ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
-                    Location location = new Location("");
-                    String id = (String) object.getObjectId();
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                    String newTitle = (String) object.getString("title");
+                                    String newDescription = (String) object.getString("description");
+                                    ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
+                                    Location location = new Location("");
+                                    String id = (String) object.getObjectId();
 
-                    if( geoPoint != null ) {
-                        double latitude = geoPoint.getLatitude();
-                        double longitude = geoPoint.getLongitude();
+                                    if( geoPoint != null ) {
+                                        double latitude = geoPoint.getLatitude();
+                                        double longitude = geoPoint.getLongitude();
 
-                        location.setLatitude(latitude);
-                        location.setLongitude(longitude);
+                                        location.setLatitude(latitude);
+                                        location.setLongitude(longitude);
+                                    }
+
+                                    Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location);
+                                    grappList.add(newGrapp);
+                                    adapter.notifyDataSetChanged();
+
+                                } else {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }
 
-                    Grapp newGrapp = new Grapp(newTitle, newDescription, id, location);
-                    grappList.add(newGrapp);
+                } else {
+                    e.printStackTrace();
                 }
-
-            } else {
-                e.printStackTrace();
-            }
-
             }
         });
 
-        adapter = new ListViewAdapter(GrappListActivity.this, grappList, images);
+//        Collections.reverse(images);
+        adapter = new ListViewAdapter(GrappListActivity.this, grappList );
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
