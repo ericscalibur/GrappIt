@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
-INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
-INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
-INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
+INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
+INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
+INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
 MERGED from [com.android.support:design:23.4.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/design-23.4.0.aar/c6c964f2080b579fe2aaf380329d5619/AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:appcompat-v7:23.4.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.4.0.aar/aada4f14fc3d3b6d9032aa4633292b46/AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:multidex:1.0.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/multidex-1.0.0.aar/8411494700c0f4756a3080d035d122d9/AndroidManifest.xml:16:1-19:12
@@ -24,22 +24,22 @@ MERGED from [com.android.support:support-core-utils:26.1.0] /Users/Jarvis/.gradl
 MERGED from [com.android.support:support-core-ui:26.1.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/6c1fcfcede2679ffa9286b261fc38e43/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/e80d613863f55003f3cdba5eed665e49/AndroidManifest.xml:17:1-31:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/33e0957a89e1dff86e02b798d56d6b7f/AndroidManifest.xml:17:1-30:12
-INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
-INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
-INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
+INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
+INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
+INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
 	package
 		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:11:5-32
 		INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml
 		INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
 		INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml
 	xmlns:tools
 		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:10:5-51
 	android:versionCode
 		INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-52:12
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:1-57:12
 		INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:9:11-69
@@ -64,7 +64,7 @@ ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidMan
 	android:name
 		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:16:22-76
 application
-ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:18:5-50:19
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:18:5-55:19
 MERGED from [com.android.support:design:23.4.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/design-23.4.0.aar/c6c964f2080b579fe2aaf380329d5619/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:23.4.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/design-23.4.0.aar/c6c964f2080b579fe2aaf380329d5619/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:appcompat-v7:23.4.0] /Users/Jarvis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.4.0.aar/aada4f14fc3d3b6d9032aa4633292b46/AndroidManifest.xml:25:5-20
@@ -128,25 +128,31 @@ ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidMan
 	android:name
 		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:30:27-74
 activity#com.parse.starter.GrappListActivity
-ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:33:9-55
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:33:9-38:20
 	android:name
 		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:33:19-52
+meta-data#android.app.searchable
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:34:13-37:25
+	android:resource
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:36:17-51
+	android:name
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:35:17-54
 activity#com.parse.starter.NewGrappActivity
-ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:34:9-54
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:39:9-54
 	android:name
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:34:19-51
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:39:19-51
 meta-data#com.google.android.geo.API_KEY
-ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:43:9-45:55
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:48:9-50:55
 	android:value
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:45:13-52
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:50:13-52
 	android:name
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:44:13-58
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:49:13-58
 activity#com.parse.starter.MapsActivity
-ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:47:9-49:68
+ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:52:9-54:68
 	android:label
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:49:13-56
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:54:13-56
 	android:name
-		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:48:13-41
+		ADDED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml:53:13-41
 uses-sdk
 INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/AndroidManifest.xml

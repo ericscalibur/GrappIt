@@ -783,6 +783,7 @@ id contentPanel
 id custom
 id customPanel
 id dark
+id dateTextView
 id decor_content_parent
 id default_activity_button
 id descriptionEditText
@@ -1454,3 +1455,4 @@ styleable Toolbar android_gravity android_minHeight collapseContentDescription c
 styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml searchable

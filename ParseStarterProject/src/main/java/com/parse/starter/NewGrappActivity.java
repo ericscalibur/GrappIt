@@ -39,6 +39,11 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 // this is the GrappIt version
 
@@ -104,24 +109,29 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
 
         ParseObject object = new ParseObject("Grapp");
 
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        final String reportDate = df.format(currentTime);
+
         object.put("username", ParseUser.getCurrentUser().getUsername());
         object.put("image", file);
         object.put("title", titleEditText.getText().toString());
         object.put("description", descriptionEditText.getText().toString());
         object.put("geopoint", point);
+        object.put("birthday", reportDate);
 
         object.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(NewGrappActivity.this, "Successfully Grapped!", Toast.LENGTH_SHORT).show();
+            if (e == null) {
+                Toast.makeText(NewGrappActivity.this, "Successfully Grapped at "+reportDate, Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(getApplicationContext(), GrappListActivity.class);
-                    startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), GrappListActivity.class);
+                startActivity(intent);
 
-                } else {
-                    Toast.makeText( NewGrappActivity.this, "there has been an error", Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                Toast.makeText( NewGrappActivity.this, "there has been an error", Toast.LENGTH_SHORT).show();
+            }
             }
         });
     }

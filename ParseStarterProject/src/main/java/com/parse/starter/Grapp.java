@@ -3,6 +3,10 @@ package com.parse.starter;
 import android.graphics.Bitmap;
 import android.location.Location;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Grapp {
 
     String title;
@@ -10,13 +14,15 @@ public class Grapp {
     String id;
     Bitmap img;
     Location location;
+    String birthday;
 
-    public Grapp(String title, String desc, Bitmap img, String id, Location location) {
+    public Grapp(String title, String desc, Bitmap img, String id, Location location, String date) {
         this.title = title;
         this.desc = desc;
         this.id = id;
         this.img = img;
         this.location = location;
+        this.birthday = date;
     }
 
     public String getTitle() {
@@ -36,5 +42,7 @@ public class Grapp {
     }
 
     public Bitmap getBitmap() { return this.img; }
+
+    public String getBirthday() { return this.birthday; }
 }
 

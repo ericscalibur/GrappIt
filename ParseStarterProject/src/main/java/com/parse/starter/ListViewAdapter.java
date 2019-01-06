@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,37 +17,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ListViewAdapter extends BaseAdapter {
+public class ListViewAdapter extends BaseAdapter implements Filterable {
 
     Context myContext;
-    LayoutInflater inflater;
-    List<Grapp> modelList;
+    GrappFilter grappFilter;
     ArrayList<Grapp> grappList;
-    ArrayList<Bitmap> iconList;
-    ArrayList<Bitmap> imageList;
+    ArrayList<Grapp> filteredList;
 
-    public ListViewAdapter(Context context, List<Grapp> modelList) {
+
+    public ListViewAdapter(Context context, ArrayList<Grapp> modelList) {
         this.myContext = context;
-        this.modelList = modelList;
+        this.grappList = modelList;
+        this.filteredList = modelList;
 
-        inflater = LayoutInflater.from(myContext);
-        this.grappList = new ArrayList<Grapp>();
-        this.grappList.addAll(modelList);
-    }
-
-    public class ViewHolder {
-        TextView titleTextView, descTextView;
-        ImageView iconImageView;
+        getFilter();
     }
 
     @Override
     public int getCount() {
-        return modelList.size();
+        return filteredList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return modelList.get(i);
+        return filteredList.get(i);
     }
 
     @Override
@@ -57,23 +52,24 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
         if(view == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) this.myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = layoutInflater.inflate(R.layout.list_item_layout, parent, false);
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.list_item_layout, null);
+            holder.titleTextView = (TextView) view.findViewById(R.id.itemTitleTextView);
+            holder.descTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+            holder.iconImageView = (ImageView) view.findViewById(R.id.thumbImageView);
+            holder.dateTextView = (TextView) view.findViewById(R.id.dateTextView);
+
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.titleTextView = (TextView) view.findViewById(R.id.itemTitleTextView);
-        holder.descTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-        holder.iconImageView = (ImageView) view.findViewById(R.id.thumbImageView);
+        holder.iconImageView.setImageBitmap(grappList.get(position).getBitmap());
+        holder.titleTextView.setText(grappList.get(position).getTitle());
+        holder.descTextView.setText(grappList.get(position).getDesc());
+        holder.dateTextView.setText(grappList.get(position).getBirthday());
 
-        if(modelList.size() > position ) {
-
-            holder.iconImageView.setImageBitmap(modelList.get(position).getBitmap());
-            holder.titleTextView.setText(modelList.get(position).getTitle());
-            holder.descTextView.setText(modelList.get(position).getDesc());
-        }
 
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -85,19 +81,68 @@ public class ListViewAdapter extends BaseAdapter {
         return view;
     }
 
-    public void filter(String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        modelList.clear();
-        if(charText.length() == 0) {
-            modelList.addAll(grappList);
-        } else {
-            for (int i = 0; i < modelList.size(); i++ ) {
-                if (grappList.get(i).getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    modelList.add(grappList.get(i));
-                }
-            }
+    @Override
+    public Filter getFilter() {
+        if (grappFilter == null) {
+            grappFilter = new GrappFilter();
         }
 
-        notifyDataSetChanged();
+        return grappFilter;
+    }
+
+    public class ViewHolder {
+
+        TextView titleTextView, descTextView, dateTextView;
+        ImageView iconImageView;
+    }
+
+
+//    public void filter(String charText) {
+//        charText = charText.toLowerCase(Locale.getDefault());
+//        grappList.clear();
+//        if(charText.length() == 0) {
+//            grappList.addAll(filteredList);
+//        } else {
+//            for (int i = 0; i < grappList.size(); i++ ) {
+//                if (grappList.get(i).getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+//                    grappList.add(filteredList.get(i));
+//                }
+//            }
+//        }
+//
+//        notifyDataSetChanged();
+//    }
+
+    private class GrappFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            if (constraint!=null && constraint.length()>0) {
+                ArrayList<Grapp> tempList = new ArrayList<Grapp>();
+
+                // search content in grapp list
+                for (Grapp grapp : grappList) {
+                    if (grapp.getTitle().toLowerCase(Locale.getDefault()).contains(constraint)) {
+                        tempList.add(grapp);
+                        Log.i("Check", grapp.getTitle().toLowerCase(Locale.getDefault()) +" contains "+constraint);
+                    }
+                }
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = grappList.size();
+                filterResults.values = grappList;
+            }
+
+            return filterResults;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredList = (ArrayList<Grapp>) results.values;
+            notifyDataSetChanged();
+        }
     }
 }

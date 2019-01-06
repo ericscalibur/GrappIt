@@ -30,7 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GrappListActivity" />
+        <activity android:name=".GrappListActivity">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable">
+            </meta-data>
+        </activity>
         <activity android:name=".NewGrappActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

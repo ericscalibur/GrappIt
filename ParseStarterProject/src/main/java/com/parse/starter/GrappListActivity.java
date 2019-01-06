@@ -1,6 +1,7 @@
 package com.parse.starter;
 
 import android.Manifest;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,6 +45,7 @@ import com.parse.ParseUser;
 
 import java.net.DatagramSocket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Collections;
@@ -57,14 +59,6 @@ public class GrappListActivity extends AppCompatActivity {
     ListView listView;
     ListViewAdapter adapter;
 
-    // move to NewGrapp Activity
-    public void getPhoto() {
-
-        Intent intent = new Intent(getApplicationContext(), NewGrappActivity.class);
-//        intent.putExtra("username", ParseUser.getCurrentUser().getUsername());
-        startActivity(intent);
-    }
-
     // setup options menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,8 +67,10 @@ public class GrappListActivity extends AppCompatActivity {
 
 //        return super.onCreateOptionsMenu(menu);
 
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (android.widget.SearchView) myActionMenuItem.getActionView();
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         if(searchView != null) {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -87,10 +83,10 @@ public class GrappListActivity extends AppCompatActivity {
                 public boolean onQueryTextChange(String s) {
 
                     if (TextUtils.isEmpty(s)) {
-                        adapter.filter("");
+                        adapter.getFilter().filter("");
                         listView.clearTextFilter();
                     } else {
-                        adapter.filter(s);
+                        adapter.getFilter().filter(s);
                     }
                     return true;
                 }
@@ -109,7 +105,8 @@ public class GrappListActivity extends AppCompatActivity {
             if ( checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
             } else {
-                getPhoto();
+                Intent intent = new Intent(getApplicationContext(), NewGrappActivity.class);
+                startActivity(intent);
             }
         } else if ( item.getItemId() == R.id.logout ) {
             ParseUser.logOut();
@@ -132,62 +129,13 @@ public class GrappListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        // view clicked item on map
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-            intent.putExtra("placeNumber", i);
-            startActivity(intent);
-            //Toast.makeText(GrappListActivity.this, "You clicked something!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // delete Grapp item
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
-            new AlertDialog.Builder(GrappListActivity.this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Are you sure?")
-                .setMessage("Do you want to delete this Grapp?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    // delete from Parse
-                    String objectId = grappList.get(position).getId();
-
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Grapp");
-                    query.whereEqualTo("objectId", objectId);
-                    query.orderByDescending("createdAt");
-
-                    query.getInBackground(objectId, new GetCallback<ParseObject>() {
-                        public void done(ParseObject object, ParseException e) {
-                        if (e == null) {
-                            object.deleteInBackground();
-                        } else {
-                            // something went wrong
-                        }
-                        }
-                    });
-
-                    //delete from lists
-                    grappList.remove(position);
-                    adapter.notifyDataSetChanged();
-                    }
-
-                })
-                .setNegativeButton("No", null)
-                .show();
-
-            return true;
-            }
-        });
+        adapter = new ListViewAdapter(GrappListActivity.this, grappList );
+        listView.setAdapter(adapter);
 
         //query parse for data to fill ListView
         ParseQuery<ParseObject> grappQuery = new ParseQuery<ParseObject>("Grapp");
         grappQuery.whereEqualTo("username",  ParseUser.getCurrentUser().getUsername());
-        grappQuery.orderByDescending("createdAt");
+        grappQuery.orderByDescending("birthday");
 
         grappQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -209,6 +157,7 @@ public class GrappListActivity extends AppCompatActivity {
                                     ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
                                     Location location = new Location("");
                                     String id = (String) object.getObjectId();
+                                    String date = object.getString("birthday");
 
                                     if( geoPoint != null ) {
                                         double latitude = geoPoint.getLatitude();
@@ -218,7 +167,7 @@ public class GrappListActivity extends AppCompatActivity {
                                         location.setLongitude(longitude);
                                     }
 
-                                    Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location);
+                                    Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date);
                                     grappList.add(newGrapp);
                                     adapter.notifyDataSetChanged();
 
@@ -235,9 +184,58 @@ public class GrappListActivity extends AppCompatActivity {
             }
         });
 
-//        Collections.reverse(images);
-        adapter = new ListViewAdapter(GrappListActivity.this, grappList );
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
+
+        // view clicked item on map
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("placeNumber", i);
+                startActivity(intent);
+                //Toast.makeText(GrappListActivity.this, "You clicked something!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // delete Grapp item
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                new AlertDialog.Builder(GrappListActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure?")
+                        .setMessage("Do you want to delete this Grapp?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // delete from Parse
+                                String objectId = grappList.get(position).getId();
+
+                                ParseQuery<ParseObject> query = ParseQuery.getQuery("Grapp");
+                                query.whereEqualTo("objectId", objectId);
+                                query.orderByDescending("birthday");
+
+                                query.getInBackground(objectId, new GetCallback<ParseObject>() {
+                                    public void done(ParseObject object, ParseException e) {
+                                        if (e == null) {
+                                            object.deleteInBackground();
+                                        } else {
+                                            // something went wrong
+                                        }
+                                    }
+                                });
+
+                                //delete from lists
+                                grappList.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;
+            }
+        });
     }
 }
