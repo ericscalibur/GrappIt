@@ -128,6 +128,7 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
 
                 Intent intent = new Intent(getApplicationContext(), GrappListActivity.class);
                 startActivity(intent);
+                GrappListActivity.adapter.notifyDataSetChanged();
 
             } else {
                 Toast.makeText( NewGrappActivity.this, "there has been an error", Toast.LENGTH_SHORT).show();

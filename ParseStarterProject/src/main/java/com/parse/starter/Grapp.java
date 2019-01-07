@@ -3,10 +3,6 @@ package com.parse.starter;
 import android.graphics.Bitmap;
 import android.location.Location;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Grapp {
 
     String title;

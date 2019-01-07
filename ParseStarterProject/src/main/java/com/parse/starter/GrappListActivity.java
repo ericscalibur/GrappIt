@@ -9,33 +9,22 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
+
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
@@ -43,12 +32,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.net.DatagramSocket;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Collections;
 
 // this is the GrappIt version
 
@@ -57,7 +42,9 @@ public class GrappListActivity extends AppCompatActivity {
     static ArrayList<Grapp> grappList = new ArrayList<Grapp>();
 
     ListView listView;
-    ListViewAdapter adapter;
+    static ListViewAdapter adapter;
+
+    Bitmap bitmap;
 
     // setup options menu
     @Override
@@ -134,8 +121,8 @@ public class GrappListActivity extends AppCompatActivity {
 
         //query parse for data to fill ListView
         ParseQuery<ParseObject> grappQuery = new ParseQuery<ParseObject>("Grapp");
-        grappQuery.whereEqualTo("username",  ParseUser.getCurrentUser().getUsername());
-        grappQuery.orderByDescending("birthday");
+        grappQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        //grappQuery.orderByDescending("birthday");
 
         grappQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -151,7 +138,6 @@ public class GrappListActivity extends AppCompatActivity {
                             public void done(byte[] data, ParseException e) {
                                 if (e == null && data != null) {
 
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                                     String newTitle = (String) object.getString("title");
                                     String newDescription = (String) object.getString("description");
                                     ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
@@ -167,6 +153,7 @@ public class GrappListActivity extends AppCompatActivity {
                                         location.setLongitude(longitude);
                                     }
 
+                                    bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                                     Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date);
                                     grappList.add(newGrapp);
                                     adapter.notifyDataSetChanged();
@@ -177,14 +164,11 @@ public class GrappListActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                 } else {
                     e.printStackTrace();
                 }
             }
         });
-
-//        adapter.notifyDataSetChanged();
 
         // view clicked item on map
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

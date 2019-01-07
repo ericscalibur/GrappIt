@@ -65,10 +65,10 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.iconImageView.setImageBitmap(grappList.get(position).getBitmap());
-        holder.titleTextView.setText(grappList.get(position).getTitle());
-        holder.descTextView.setText(grappList.get(position).getDesc());
-        holder.dateTextView.setText(grappList.get(position).getBirthday());
+        holder.iconImageView.setImageBitmap(filteredList.get(position).getBitmap());
+        holder.titleTextView.setText(filteredList.get(position).getTitle());
+        holder.descTextView.setText(filteredList.get(position).getDesc());
+        holder.dateTextView.setText(filteredList.get(position).getBirthday());
 
 
 //        view.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         if (grappFilter == null) {
             grappFilter = new GrappFilter();
         }
-
         return grappFilter;
     }
 
