@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -148,6 +149,9 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
                         // clear fields
                         titleEditText.setText("");
                         descriptionEditText.setText("");
+                        Intent intent = new Intent(getApplicationContext(), GrappListActivity.class);
+                        startActivity(intent);
+
                     }
 
                 })
@@ -171,6 +175,12 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
         super.onBackPressed();
         Intent intent = new Intent(NewGrappActivity.this, GrappListActivity.class);
         startActivity(intent);
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, float degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     @Override
@@ -207,9 +217,12 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
 
         bitmap = (Bitmap) data.getExtras().get("data");
-        Log.i("image selected", "good work");
 
-        imageView.setImageBitmap(bitmap);
+        if( bitmap.getWidth() > bitmap.getHeight() ) {
+            imageView.setImageBitmap(rotate(bitmap, 90));
+        } else {
+            imageView.setImageBitmap(bitmap);
+        }
     }
 
     // if permission granted, get location

@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Location;
+import android.media.ExifInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,6 +109,26 @@ public class GrappListActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed()
+    {
+        new AlertDialog.Builder(GrappListActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("This will log you out.")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    ParseUser.logOut();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                // .setNeutralButton("Retake Photo")
+                .show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grapp_list);
@@ -127,44 +150,45 @@ public class GrappListActivity extends AppCompatActivity {
         grappQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null && objects.size() > 0) {
-                    for (final ParseObject object : objects ) {
+            if (e == null && objects.size() > 0) {
+                for (final ParseObject object : objects ) {
 
-                        ParseFile file = (ParseFile) object.get("image");
+                    ParseFile file = (ParseFile) object.get("image");
 
-                        //download images from Parse ImageObject file
-                        file.getDataInBackground(new GetDataCallback() {
-                            @Override
-                            public void done(byte[] data, ParseException e) {
-                                if (e == null && data != null) {
+                    //download images from Parse ImageObject file
+                    file.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] data, ParseException e) {
+                        if (e == null && data != null) {
 
-                                    String newTitle = (String) object.getString("title");
-                                    String newDescription = (String) object.getString("description");
-                                    ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
-                                    Location location = new Location("");
-                                    String id = (String) object.getObjectId();
-                                    String date = object.getString("birthday");
+                            String newTitle = (String) object.getString("title");
+                            String newDescription = (String) object.getString("description");
+                            ParseGeoPoint geoPoint = (ParseGeoPoint) object.getParseGeoPoint("geopoint");
+                            Location location = new Location("");
+                            String id = (String) object.getObjectId();
+                            String date = object.getString("birthday");
 
-                                    if( geoPoint != null ) {
-                                        double latitude = geoPoint.getLatitude();
-                                        double longitude = geoPoint.getLongitude();
+                            if( geoPoint != null ) {
+                                double latitude = geoPoint.getLatitude();
+                                double longitude = geoPoint.getLongitude();
 
-                                        location.setLatitude(latitude);
-                                        location.setLongitude(longitude);
-                                    }
-
-                                    bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                    Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date);
-                                    grappList.add(newGrapp);
-                                    adapter.notifyDataSetChanged();
-
-                                } else {
-                                    e.printStackTrace();
-                                }
+                                location.setLatitude(latitude);
+                                location.setLongitude(longitude);
                             }
-                        });
-                    }
-                } else {
+
+                            bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                            Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date);
+                            grappList.add(newGrapp);
+                            adapter.notifyDataSetChanged();
+
+                        } else {
+                            e.printStackTrace();
+                        }
+                        }
+                    });
+                }
+            } else {
                     e.printStackTrace();
                 }
             }
@@ -174,10 +198,10 @@ public class GrappListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                intent.putExtra("placeNumber", i);
-                startActivity(intent);
-                //Toast.makeText(GrappListActivity.this, "You clicked something!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+            intent.putExtra("placeNumber", i);
+            startActivity(intent);
+            //Toast.makeText(GrappListActivity.this, "You clicked something!", Toast.LENGTH_SHORT).show();
             }
         });
 

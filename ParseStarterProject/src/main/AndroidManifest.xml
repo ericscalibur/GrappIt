@@ -7,7 +7,6 @@
   ~ of patent rights can be found in the PATENTS file in the same directory.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.parse.starter">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -48,6 +47,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MapsActivity"

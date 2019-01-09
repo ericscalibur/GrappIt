@@ -117,12 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                if(user != null) {
-                    Log.i("Login", "Ok");
-                    showGrappList();
-                } else {
-                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            if(user != null) {
+                Log.i("Login", "Ok");
+                showGrappList();
+            } else {
+                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
             }
         });
       }

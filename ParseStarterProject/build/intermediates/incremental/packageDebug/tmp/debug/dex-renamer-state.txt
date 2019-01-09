@@ -1,4 +1,4 @@
-#Sun Jan 06 19:17:08 CST 2019
+#Tue Jan 08 17:00:21 CST 2019
 base.0=/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/transforms/dexMerger/debug/1
 path.1=classes.dex
 renamed.1=classes2.dex
