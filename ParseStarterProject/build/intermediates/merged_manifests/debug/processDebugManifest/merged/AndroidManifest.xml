@@ -45,8 +45,7 @@
         <activity android:name="com.parse.starter.GrappListActivity" >
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable" >
-            </meta-data>
+                android:resource="@xml/searchable" />
         </activity>
         <activity android:name="com.parse.starter.NewGrappActivity" />
         <!--
@@ -67,6 +66,7 @@
         <activity
             android:name="com.parse.starter.MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name="com.parse.starter.ViewGrappActivity" />
         <activity
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
             android:exported="false"

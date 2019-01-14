@@ -11,14 +11,16 @@ public class Grapp {
     Bitmap img;
     Location location;
     String birthday;
+    String orientation;
 
-    public Grapp(String title, String desc, Bitmap img, String id, Location location, String date) {
+    public Grapp(String title, String desc, Bitmap img, String id, Location location, String date, String o) {
         this.title = title;
         this.desc = desc;
         this.id = id;
         this.img = img;
         this.location = location;
         this.birthday = date;
+        this.orientation = o;
     }
 
     public String getTitle() {
@@ -40,5 +42,7 @@ public class Grapp {
     public Bitmap getBitmap() { return this.img; }
 
     public String getBirthday() { return this.birthday; }
+
+    public String getOrientation() { return this.orientation; }
 }
 

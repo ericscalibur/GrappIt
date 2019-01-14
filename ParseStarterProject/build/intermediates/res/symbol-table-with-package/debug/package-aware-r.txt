@@ -786,6 +786,7 @@ id dark
 id dateTextView
 id decor_content_parent
 id default_activity_button
+id descTextView
 id descriptionEditText
 id descriptionTextView
 id design_bottom_sheet
@@ -909,6 +910,7 @@ id thumbImageView
 id time
 id title
 id titleEditText
+id titleTextView
 id title_template
 id top
 id topPanel
@@ -916,6 +918,7 @@ id touch_outside
 id up
 id useLogo
 id usernameEditText
+id viewMapButton
 id view_offset_helper
 id wide
 id withText
@@ -958,6 +961,7 @@ layout activity_grapp_list
 layout activity_main
 layout activity_maps
 layout activity_new_grapp
+layout activity_view_grapp
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
 layout design_layout_snackbar_include

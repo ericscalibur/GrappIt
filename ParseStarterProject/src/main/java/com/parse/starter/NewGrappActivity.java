@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,19 +28,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
+
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Time;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,10 +50,10 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
     ImageView imageView;
     EditText titleEditText;
     EditText descriptionEditText;
+    String orientation;
 
     Bitmap bitmap;
 
-    private static final int REQUEST_LOCATION = 1;
     static LocationManager locationManager;
 
     LocationListener locationListener;
@@ -120,6 +117,7 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
         object.put("description", descriptionEditText.getText().toString());
         object.put("geopoint", point);
         object.put("birthday", reportDate);
+        object.put("orientation", orientation);
 
         object.saveInBackground(new SaveCallback() {
             @Override
@@ -151,7 +149,6 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
                         descriptionEditText.setText("");
                         Intent intent = new Intent(getApplicationContext(), GrappListActivity.class);
                         startActivity(intent);
-
                     }
 
                 })
@@ -217,12 +214,17 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
 
         bitmap = (Bitmap) data.getExtras().get("data");
-
-        if( bitmap.getWidth() > bitmap.getHeight() ) {
-            imageView.setImageBitmap(rotate(bitmap, 90));
+        int otation = getResources().getConfiguration().orientation;
+        if (otation == Configuration.ORIENTATION_LANDSCAPE) {
+            // In landscape
+            orientation = "landscape";
         } else {
-            imageView.setImageBitmap(bitmap);
+            // In portrait
+            rotate(bitmap, 90);
+            orientation = "portrait";
         }
+        imageView.setImageBitmap(bitmap);
+
     }
 
     // if permission granted, get location
@@ -234,7 +236,7 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 0,0, locationListener);
-                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 }
             }
         }

@@ -145,7 +145,7 @@ public class GrappListActivity extends AppCompatActivity {
         //query parse for data to fill ListView
         ParseQuery<ParseObject> grappQuery = new ParseQuery<ParseObject>("Grapp");
         grappQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
-        //grappQuery.orderByDescending("birthday");
+        grappQuery.orderByDescending("birthday");
 
         grappQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -167,6 +167,7 @@ public class GrappListActivity extends AppCompatActivity {
                             Location location = new Location("");
                             String id = (String) object.getObjectId();
                             String date = object.getString("birthday");
+                            String orientation = object.getString("orientation");
 
                             if( geoPoint != null ) {
                                 double latitude = geoPoint.getLatitude();
@@ -178,7 +179,7 @@ public class GrappListActivity extends AppCompatActivity {
 
                             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-                            Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date);
+                            Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date, orientation);
                             grappList.add(newGrapp);
                             adapter.notifyDataSetChanged();
 
@@ -198,10 +199,9 @@ public class GrappListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ViewGrappActivity.class);
             intent.putExtra("placeNumber", i);
             startActivity(intent);
-            //Toast.makeText(GrappListActivity.this, "You clicked something!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -210,39 +210,37 @@ public class GrappListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                new AlertDialog.Builder(GrappListActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Are you sure?")
-                        .setMessage("Do you want to delete this Grapp?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // delete from Parse
-                                String objectId = grappList.get(position).getId();
+            new AlertDialog.Builder(GrappListActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Are you sure?")
+                .setMessage("Do you want to delete this Grapp?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    String objectId = grappList.get(position).getId();
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Grapp");
+                    query.whereEqualTo("objectId", objectId);
+                    query.orderByDescending("birthday");
 
-                                ParseQuery<ParseObject> query = ParseQuery.getQuery("Grapp");
-                                query.whereEqualTo("objectId", objectId);
-                                query.orderByDescending("birthday");
+                    query.getInBackground(objectId, new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                        if (e == null) {
+                            object.deleteInBackground();
+                        } else {
+                            // something went wrong
+                        }
+                        }
+                    });
 
-                                query.getInBackground(objectId, new GetCallback<ParseObject>() {
-                                    public void done(ParseObject object, ParseException e) {
-                                        if (e == null) {
-                                            object.deleteInBackground();
-                                        } else {
-                                            // something went wrong
-                                        }
-                                    }
-                                });
+                    //delete from lists
+                    grappList.remove(position);
+                    adapter.notifyDataSetChanged();
+                    }
 
-                                //delete from lists
-                                grappList.remove(position);
-                                adapter.notifyDataSetChanged();
-                            }
+                })
+                .setNegativeButton("No", null)
+                .show();
 
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-
-                return true;
+            return true;
             }
         });
     }

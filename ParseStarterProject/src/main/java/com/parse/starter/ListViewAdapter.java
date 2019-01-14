@@ -2,6 +2,7 @@ package com.parse.starter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
+        Grapp thisGrapp = filteredList.get(position);
         if(view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.list_item_layout, parent, false);
@@ -65,10 +67,15 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.iconImageView.setImageBitmap(filteredList.get(position).getBitmap());
-        holder.titleTextView.setText(filteredList.get(position).getTitle());
-        holder.descTextView.setText(filteredList.get(position).getDesc());
-        holder.dateTextView.setText(filteredList.get(position).getBirthday());
+        if(thisGrapp.getOrientation() == "portrait")  {
+            holder.iconImageView.setImageBitmap(rotate(thisGrapp.getBitmap(), 90));
+        } else {
+            holder.iconImageView.setImageBitmap(thisGrapp.getBitmap());
+        }
+
+        holder.titleTextView.setText(thisGrapp.getTitle());
+        holder.descTextView.setText(thisGrapp.getDesc());
+        holder.dateTextView.setText(thisGrapp.getBirthday());
 
 
 //        view.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +86,12 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 //        });
 //
         return view;
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, float degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     @Override

@@ -804,6 +804,10 @@
         "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/e80d613863f55003f3cdba5eed665e49/res/drawable-v21/notification_action_background.xml"
     },
     {
+        "merged": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/res/merged/debug/layout_activity_view_grapp.xml.flat",
+        "source": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/res/layout/activity_view_grapp.xml"
+    },
+    {
         "merged": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_ic_star_half_black_36dp.png.flat",
         "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.4.0.aar/aada4f14fc3d3b6d9032aa4633292b46/res/drawable-hdpi-v4/abc_ic_star_half_black_36dp.png"
     },
