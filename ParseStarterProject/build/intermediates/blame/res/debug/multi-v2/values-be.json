@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
+            "outputFile": "/Users/Jarvis/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
             "map": [
                 {
                     "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/0b6b621f2a2bd34f9e863631f958399b/res/values-be/values.xml",

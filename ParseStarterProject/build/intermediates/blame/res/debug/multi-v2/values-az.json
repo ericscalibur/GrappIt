@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-az/values-az.xml",
+            "outputFile": "/Users/Jarvis/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-az/values-az.xml",
             "map": [
                 {
                     "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/e80d613863f55003f3cdba5eed665e49/res/values-az/values-az.xml",

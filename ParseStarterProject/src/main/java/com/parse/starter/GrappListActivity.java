@@ -35,7 +35,12 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 // this is the GrappIt version
@@ -128,6 +133,21 @@ public class GrappListActivity extends AppCompatActivity {
                 .show();
     }
 
+    public class CustomComparator implements Comparator<Grapp> {// MyObject would be Model class
+        Date date1,date2;
+        @Override
+        public int compare(Grapp obj1, Grapp obj2) {
+            DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+            try {
+                date1 = df1.parse(obj1.getBirthday());
+                date2 = df1.parse(obj2.getBirthday());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return date1.compareTo(date2);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +201,8 @@ public class GrappListActivity extends AppCompatActivity {
 
                             Grapp newGrapp = new Grapp(newTitle, newDescription, bitmap, id, location, date, orientation);
                             grappList.add(newGrapp);
+                            Collections.sort(grappList, new CustomComparator());
+                            Collections.reverse(grappList);
                             adapter.notifyDataSetChanged();
 
                         } else {

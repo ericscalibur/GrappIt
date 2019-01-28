@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/Jarvis/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/res/values/styles.xml",
+                    "source": "/Users/Jarvis/GrappIt/ParseStarterProject/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "11",
                         "startColumns": "4",
@@ -59,23 +59,6 @@
                     }
                 },
                 {
-                    "source": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/debug/res/values/google_maps_api.xml",
-                    "from": {
-                        "startLines": "22",
-                        "startColumns": "4",
-                        "startOffsets": "885",
-                        "endColumns": "137",
-                        "endOffsets": "1018"
-                    },
-                    "to": {
-                        "startLines": "565",
-                        "startColumns": "4",
-                        "startOffsets": "58721",
-                        "endColumns": "137",
-                        "endOffsets": "58854"
-                    }
-                },
-                {
                     "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/0b6b621f2a2bd34f9e863631f958399b/res/values/values.xml",
                     "from": {
                         "startLines": "4,7",
@@ -90,6 +73,23 @@
                         "startOffsets": "54453,57428",
                         "endColumns": "67,166",
                         "endOffsets": "54516,57590"
+                    }
+                },
+                {
+                    "source": "/Users/Jarvis/GrappIt/ParseStarterProject/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "15,12,14,9,10,17,18,16",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "591,492,538,369,430,697,760,644",
+                        "endColumns": "52,44,52,60,60,62,51,52",
+                        "endOffsets": "639,532,586,425,486,755,807,692"
+                    },
+                    "to": {
+                        "startLines": "542,543,566,567,568,570,571,572",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55937,55990,58859,58912,58973,59105,59168,59220",
+                        "endColumns": "52,44,52,60,60,62,51,52",
+                        "endOffsets": "55985,56030,58907,58968,59029,59163,59215,59268"
                     }
                 },
                 {
@@ -109,6 +109,40 @@
                         "endLines": "197,198,251,255,440,441,442,443,444,482,483,484,485,488,489,490,491,492,493,495,496,498,505,506,510,511,512,1749,1753,1755,1761,1763,1951,1952",
                         "endColumns": "68,62,35,115,69,67,71,69,60,60,60,61,63,67,99,59,65,72,68,51,61,75,34,34,33,34,34,116,12,109,12,128,71,66",
                         "endOffsets": "10876,10939,32993,33266,49557,49625,49697,49767,49828,52316,52377,52439,52503,52694,52794,52854,52920,52993,53062,53171,53233,53381,53721,53756,53932,53967,54002,136860,137061,137237,137621,137816,151507,151574"
+                    }
+                },
+                {
+                    "source": "/Users/Jarvis/GrappIt/ParseStarterProject/src/main/res/values/dimens.xml",
+                    "from": {
+                        "startLines": "10,11",
+                        "startColumns": "4,4",
+                        "startOffsets": "403,461",
+                        "endColumns": "57,55",
+                        "endOffsets": "456,512"
+                    },
+                    "to": {
+                        "startLines": "438,439",
+                        "startColumns": "4,4",
+                        "startOffsets": "49378,49436",
+                        "endColumns": "57,55",
+                        "endOffsets": "49431,49487"
+                    }
+                },
+                {
+                    "source": "/Users/Jarvis/GrappIt/ParseStarterProject/src/debug/res/values/google_maps_api.xml",
+                    "from": {
+                        "startLines": "22",
+                        "startColumns": "4",
+                        "startOffsets": "885",
+                        "endColumns": "137",
+                        "endOffsets": "1018"
+                    },
+                    "to": {
+                        "startLines": "565",
+                        "startColumns": "4",
+                        "startOffsets": "58721",
+                        "endColumns": "137",
+                        "endOffsets": "58854"
                     }
                 },
                 {
@@ -188,23 +222,6 @@
                     }
                 },
                 {
-                    "source": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/res/values/dimens.xml",
-                    "from": {
-                        "startLines": "10,11",
-                        "startColumns": "4,4",
-                        "startOffsets": "403,461",
-                        "endColumns": "57,55",
-                        "endOffsets": "456,512"
-                    },
-                    "to": {
-                        "startLines": "438,439",
-                        "startColumns": "4,4",
-                        "startOffsets": "49378,49436",
-                        "endColumns": "57,55",
-                        "endOffsets": "49431,49487"
-                    }
-                },
-                {
                     "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-23.4.0.aar/78514c5925afa32d4a00807f8aa8777f/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6",
@@ -219,23 +236,6 @@
                         "startOffsets": "38375,52037,52112,52188,53625",
                         "endColumns": "271,74,75,71,65",
                         "endOffsets": "38642,52107,52183,52255,53686"
-                    }
-                },
-                {
-                    "source": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/src/main/res/values/strings.xml",
-                    "from": {
-                        "startLines": "15,12,14,9,10,17,18,16",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "591,492,538,369,430,697,760,644",
-                        "endColumns": "52,44,52,60,60,62,51,52",
-                        "endOffsets": "639,532,586,425,486,755,807,692"
-                    },
-                    "to": {
-                        "startLines": "542,543,566,567,568,570,571,572",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55937,55990,58859,58912,58973,59105,59168,59220",
-                        "endColumns": "52,44,52,60,60,62,51,52",
-                        "endOffsets": "55985,56030,58907,58968,59029,59163,59215,59268"
                     }
                 }
             ]

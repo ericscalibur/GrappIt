@@ -67,24 +67,13 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
 
-        if(thisGrapp.getOrientation() == "portrait")  {
-            holder.iconImageView.setImageBitmap(rotate(thisGrapp.getBitmap(), 90));
-        } else {
-            holder.iconImageView.setImageBitmap(thisGrapp.getBitmap());
-        }
+        holder.iconImageView.setImageBitmap(rotate(thisGrapp.getBitmap(), 90));
+
 
         holder.titleTextView.setText(thisGrapp.getTitle());
         holder.descTextView.setText(thisGrapp.getDesc());
         holder.dateTextView.setText(thisGrapp.getBirthday());
 
-
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//
         return view;
     }
 
@@ -107,23 +96,6 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         TextView titleTextView, descTextView, dateTextView;
         ImageView iconImageView;
     }
-
-
-//    public void filter(String charText) {
-//        charText = charText.toLowerCase(Locale.getDefault());
-//        grappList.clear();
-//        if(charText.length() == 0) {
-//            grappList.addAll(filteredList);
-//        } else {
-//            for (int i = 0; i < grappList.size(); i++ ) {
-//                if (grappList.get(i).getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
-//                    grappList.add(filteredList.get(i));
-//                }
-//            }
-//        }
-//
-//        notifyDataSetChanged();
-//    }
 
     private class GrappFilter extends Filter {
 

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Jarvis/Desktop/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
+            "outputFile": "/Users/Jarvis/GrappIt/ParseStarterProject/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
             "map": [
                 {
                     "source": "/Users/Jarvis/.gradle/caches/transforms-1/files-1.1/design-23.4.0.aar/c6c964f2080b579fe2aaf380329d5619/res/values-land/values-land.xml",
