@@ -107,9 +107,11 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
 
                 // search content in grapp list
                 for (Grapp grapp : grappList) {
-                    if (grapp.getTitle().toLowerCase(Locale.getDefault()).contains(constraint)) {
-                        tempList.add(grapp);
-                        Log.i("Check", grapp.getTitle().toLowerCase(Locale.getDefault()) +" contains "+constraint);
+                    if (grapp.getTitle().toLowerCase(Locale.getDefault()).contains(constraint) ||
+                            grapp.getDesc().toLowerCase(Locale.getDefault()).contains(constraint) ||
+                            grapp.getBirthday().toLowerCase(Locale.getDefault()).contains(constraint)) {
+                                tempList.add(grapp);
+                                Log.i("Check", grapp.getTitle().toLowerCase(Locale.getDefault()) +" contains "+constraint);
                     }
                 }
                 filterResults.count = tempList.size();

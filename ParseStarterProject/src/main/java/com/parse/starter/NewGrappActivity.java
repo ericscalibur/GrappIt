@@ -91,7 +91,7 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void done(ParseException e) {
             if (e == null) {
-                Toast.makeText(NewGrappActivity.this, "Successfully Grapped at "+reportDate, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewGrappActivity.this, "Successfully Grapped!", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), GrappListActivity.class);
                 startActivity(intent);
@@ -199,7 +199,7 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
 
         ConstraintLayout background = (ConstraintLayout) findViewById(R.id.background);
 
-        // incase user taps off keyboard...
+        // in case user taps off keyboard...
         imageView.setOnClickListener(this);
         background.setOnClickListener(this);
 
@@ -213,17 +213,36 @@ public class NewGrappActivity extends AppCompatActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        bitmap = (Bitmap) data.getExtras().get("data");
-        int otation = getResources().getConfiguration().orientation;
-        if (otation == Configuration.ORIENTATION_LANDSCAPE) {
-            // In landscape
-            orientation = "landscape";
+        if (resultCode == RESULT_OK)
+        {
+
+            bitmap = (Bitmap) data.getExtras().get("data");
+            int otation = getResources().getConfiguration().orientation;
+            if (otation == Configuration.ORIENTATION_LANDSCAPE) {
+                // In landscape
+                orientation = "landscape";
+            } else {
+                // In portrait
+                rotate(bitmap, 90);
+                orientation = "portrait";
+            }
+
         } else {
-            // In portrait
-            rotate(bitmap, 90);
-            orientation = "portrait";
+            //if user clicks Back then return to listView
+            Intent intent = new Intent(NewGrappActivity.this, GrappListActivity.class);
+            startActivity(intent);
         }
-        imageView.setImageBitmap(bitmap);
+
+        if(orientation == "portrait")
+        {
+            imageView.setImageBitmap(rotate(bitmap, 90));
+        }
+
+        if(orientation == "landscape")
+        {
+            rotate(bitmap, -90);
+            imageView.setImageBitmap(bitmap);
+        }
 
     }
 
